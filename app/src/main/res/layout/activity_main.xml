@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.omni.vision.OverlayView
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Bilah atas: koneksi, mode, tim, halangan lapis 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="#99000000"
+        android:orientation="horizontal">
+        <Button android:id="@+id/btnUsb" style="@style/BarW" android:text="USB" />
+        <Button android:id="@+id/btnManual" style="@style/BarW" android:text="MANUAL" />
+        <Button android:id="@+id/btnAssist" style="@style/BarW" android:text="ASSIST" />
+        <Button android:id="@+id/btnAuto" style="@style/BarW" android:text="AUTO" />
+        <Button android:id="@+id/btnTrain" style="@style/BarW" android:text="TRAINING" />
+        <Button android:id="@+id/btnTeam" style="@style/BarW" android:text="TIM: MERAH" />
+        <Button android:id="@+id/btnCaps" style="@style/BarW" android:text="CAPS: ON" />
+    </LinearLayout>
+
+    <!-- Panel telemetri + log (FR7) -->
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="40dp"
+        android:background="#88000000"
+        android:orientation="vertical"
+        android:padding="4dp">
+        <TextView android:id="@+id/txtTelem" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#FFFFFF" android:textSize="11sp" android:typeface="monospace" />
+        <TextView android:id="@+id/txtLog" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="#B0FFB0" android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- Panel Training (FR10) -->
+    <ScrollView
+        android:id="@+id/panelTrain"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="70dp"
+        android:background="#88000000"
+        android:visibility="gone">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="4dp">
+            <Spinner android:id="@+id/spClass" android:layout_width="match_parent" android:layout_height="40dp" />
+            <TextView android:id="@+id/txtRange" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#FFFFFF" android:textSize="11sp" />
+            <SeekBar android:id="@+id/sbHLo" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="179" />
+            <SeekBar android:id="@+id/sbHHi" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="179" />
+            <SeekBar android:id="@+id/sbSLo" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="255" />
+            <SeekBar android:id="@+id/sbSHi" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="255" />
+            <SeekBar android:id="@+id/sbVLo" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="255" />
+            <SeekBar android:id="@+id/sbVHi" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="255" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Toleransi sampling" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <SeekBar android:id="@+id/sbTol" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100" />
+            <Button android:id="@+id/btnSample" style="@style/Bar" android:layout_width="match_parent" android:text="SAMPLING: OFF" />
+            <Button android:id="@+id/btnClear" style="@style/Bar" android:layout_width="match_parent" android:text="RESET KELAS" />
+            <Button android:id="@+id/btnTest" style="@style/Bar" android:layout_width="match_parent" android:text="UJI DETEKSI: OFF" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Landmark (coret layar)" android:textColor="#80FFFF" android:textSize="10sp" />
+            <EditText android:id="@+id/etLm" android:layout_width="match_parent" android:layout_height="40dp" android:hint="nama, mis. TRANSFER1" android:inputType="textNoSuggestions" android:imeOptions="flagNoExtractUi" android:maxLength="16" android:singleLine="true" android:text="LM1" android:textColor="#FFFFFF" android:textColorHint="#888888" android:textSize="12sp" />
+            <Button android:id="@+id/btnScribble" style="@style/Bar" android:layout_width="match_parent" android:text="CORET: OFF" />
+            <Button android:id="@+id/btnLmDel" style="@style/Bar" android:layout_width="match_parent" android:text="HAPUS LANDMARK (nama di atas)" />
+            <TextView android:id="@+id/txtLm" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#80FFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnArrive" style="@style/Bar" android:layout_width="match_parent" android:text="SET AREA TIBA" />
+            <Button android:id="@+id/btnSave" style="@style/Bar" android:layout_width="match_parent" android:text="SIMPAN PROFIL" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Joystick manual (Manual / Assist) -->
+    <FrameLayout
+        android:id="@+id/panelManual"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_gravity="bottom">
+        <com.omni.vision.JoystickView android:id="@+id/joyMove" android:layout_width="120dp" android:layout_height="120dp" android:layout_gravity="bottom|start" android:layout_margin="6dp" />
+        <com.omni.vision.JoystickView android:id="@+id/joyTurn" android:layout_width="120dp" android:layout_height="120dp" android:layout_gravity="bottom|end" android:layout_margin="6dp" />
+    </FrameLayout>
+
+    <!-- Kontrol Auto -->
+    <LinearLayout
+        android:id="@+id/panelAuto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="6dp"
+        android:background="#88000000"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:visibility="gone">
+        <Spinner android:id="@+id/spMission" android:layout_width="170dp" android:layout_height="40dp" />
+        <Spinner android:id="@+id/spTarget" android:layout_width="170dp" android:layout_height="40dp" />
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+            <Button android:id="@+id/btnRun" style="@style/BarW" android:text="MULAI" />
+            <Button android:id="@+id/btnConfirm" style="@style/BarW" android:text="KONFIRMASI" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- STOP darurat: selalu terlihat. Ketuk = STOP & tahan; tahan lama = lepas -->
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="6dp"
+        android:background="#D00000"
+        android:text="STOP"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</FrameLayout>
